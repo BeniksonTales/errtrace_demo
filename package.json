@@ -1,0 +1,28 @@
+{
+  "name": "errtrace-evaluation-server",
+  "version": "1.0.0",
+  "description": "Production-ready demonstration and evaluation server for errtrace npm package",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test test/**/*.test.js",
+    "express-demo": "node express-example.js"
+  },
+  "keywords": [
+    "errtrace",
+    "error-handling",
+    "trace-id",
+    "middleware",
+    "demo-server",
+    "pure-node"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "errtrace": "file:./packages/errtrace"
+  }
+}
