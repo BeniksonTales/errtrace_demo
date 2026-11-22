@@ -23,6 +23,6 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
-    "errtrace": "^1.0.0"
+    "errtrace": "file:./packages/errtrace"
   }
 }
