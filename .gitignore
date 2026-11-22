@@ -11,6 +11,3 @@ yarn-error.log*
 # OS files
 .DS_Store
 Thumbs.db
-
-# NOTE: Do NOT ignore packages/ or *.tgz
-# They contain the bundled errtrace package so remote builds succeed without external npm registry publish!

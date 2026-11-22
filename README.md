@@ -1,6 +1,6 @@
 # errtrace Evaluation & Live Demo Server
 
-> **Production-ready, zero-dependency demonstration and evaluation server for the [`errtrace`](./packages/errtrace) npm package.**
+> **Production-ready, zero-dependency demonstration and evaluation server for the [`errtrace`](https://www.npmjs.com/package/errtrace) npm package.**
 
 This server demonstrates every feature, error class, async tracing mechanism, and error-handling pattern defined in the **`errtrace`** specification. It includes a **built-in interactive Web UI Playground** at `/` for evaluation, plus a complete REST API testable via `curl` or Postman.
 
@@ -36,7 +36,6 @@ This server demonstrates every feature, error class, async tracing mechanism, an
 ```bash
 npm install
 ```
-*(Links the self-contained `./packages/errtrace` package so no external npm registry publish is required).*
 
 ### 2. Run Automated Test Suite
 ```bash
@@ -56,10 +55,10 @@ The server will start at:
 
 ## 🌐 Deploying for Instructor Evaluation
 
-This project is bundled and pre-configured for **1-click cloud deployment** on multiple free-tier platforms:
+This project is configured for **1-click cloud deployment** on standard cloud platforms:
 
 ### Option A: Render (Recommended)
-1. Push this folder to a GitHub repository.
+1. Push this repository to GitHub.
 2. In [Render Dashboard](https://dashboard.render.com), click **New +** → **Web Service**.
 3. Select your repository.
 4. Render will automatically detect `render.yaml` or set:
@@ -117,33 +116,12 @@ curl -i -X POST "http://localhost:3000/api/users" \
   -H "Content-Type: application/json" \
   -d '{"username": "a", "email": "invalid-email"}'
 ```
-*Expected Output:*
-```json
-{
-  "success": false,
-  "error": {
-    "traceId": "c4d054e9-38b8-4033-bfa4-a4be348f932e",
-    "code": "VALIDATION_ERROR",
-    "message": "User validation failed",
-    "statusCode": 422,
-    "timestamp": "2026-11-22T08:30:00.000Z",
-    "method": "POST",
-    "path": "/api/users",
-    "details": [
-      { "field": "username", "issue": "Username is required and must be at least 3 characters long", "received": "a" },
-      { "field": "email", "issue": "Invalid email address format (e.g. user@example.com)", "received": "invalid-email" }
-    ],
-    "stack": [ ... ]
-  }
-}
-```
 
 #### 2. Custom Incoming Trace ID Preservation
 ```bash
 curl -i -X GET "http://localhost:3000/api/users/usr_unknown" \
   -H "x-trace-id: instructor-evaluation-trace-999"
 ```
-*Notice that response header `x-trace-id` and payload `error.traceId` both equal `instructor-evaluation-trace-999`.*
 
 #### 3. Custom Domain Error (402 PaymentFailedError)
 ```bash
@@ -156,7 +134,6 @@ curl -i -X POST "http://localhost:3000/api/orders/checkout" \
 ```bash
 curl -i -X GET "http://localhost:3000/api/async-trace-audit"
 ```
-*Proves that all 3 background asynchronous stages read the exact same active trace ID via `getTraceId()` without receiving `req`.*
 
 ---
 
@@ -164,8 +141,6 @@ curl -i -X GET "http://localhost:3000/api/async-trace-audit"
 
 ```
 npm_test_1/
-├── packages/
-│   └── errtrace/          # The unpushed npm package source code & exports
 ├── src/
 │   ├── errors/
 │   │   └── customErrors.js # Subclasses of AppError (PaymentFailedError)
@@ -179,10 +154,10 @@ npm_test_1/
 ├── test/
 │   └── server.test.js     # Native test suite (13 passing tests)
 ├── .env.example           # Environment variables template
-├── .gitignore             # Git ignore (safeguards packages/)
+├── .gitignore             # Git ignore file
 ├── Dockerfile             # Container definition for Cloud Run / Fly.io
 ├── express-example.js     # Express compatibility demonstration
-├── package.json           # Scripts and dependencies
+├── package.json           # Scripts and dependencies (errtrace: ^1.0.0)
 ├── Procfile               # Heroku / Render / Railway process definition
 ├── render.yaml            # Render 1-click blueprint
 ├── server.js              # Pure Node.js HTTP server entry point
